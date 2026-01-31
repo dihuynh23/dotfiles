@@ -109,13 +109,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias bat="batcat"
-alias windows="cd /mnt/c/Users/Di"
 alias gits="git status"
 alias amend="git commit --amend --no-edit"
 alias cm="git commit -m"
-alias push="git push"
+alias p="git push"
 alias c="claude"
 alias gem="gemini"
+alias w='cd ~/workspace'
+alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
