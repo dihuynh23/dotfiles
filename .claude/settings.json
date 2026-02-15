@@ -1,18 +1,5 @@
 {
   "includeCoAuthoredBy": false,
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "printf '\\033Ptmux;\\033\\033]99;;Claude needs your attention\\033\\033\\\\\\033\\\\' > /dev/tty"
-          }
-        ]
-      }
-    ]
-  },
   "statusLine": {
     "type": "command",
     "command": "bunx -y ccstatusline@latest",
@@ -22,6 +9,7 @@
     "context7@claude-plugins-official": true,
     "linear@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true
+    "code-simplifier@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true
   }
 }

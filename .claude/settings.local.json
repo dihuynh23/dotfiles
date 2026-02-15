@@ -6,7 +6,9 @@
       "Grep",
       "Bash(git --version:*)",
       "Bash(gh:*)",
-      "WebFetch(domain:github.com)"
+      "Bash(find:*)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
     ]
   }
 }

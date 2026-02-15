@@ -1,49 +1,48 @@
-<command-name>commit</command-name>
+---
+name: commit
+description: Create git commits with conventional commit format and optional Linear issue linking. Use when the user invokes /commit, optionally with a Linear issue ID argument (e.g., "/commit RES-81"). Stages files, generates commit messages, and links to Linear issues.
+---
 
-# Commit Skill
+# Commit
 
-Create a git commit with Linear issue tracking and push.
+Stage and commit changes with Linear issue tracking.
 
-## Instructions
+## Workflow
 
-1. **Check for Linear issue**: If a Linear issue ID was not provided in the user's message (e.g., "RES-81", "ENG-123"):
-   - Fetch in-progress Linear issues using the `list_issues` MCP tool (assignee: "Di", state: "In Progress", limit: 10). Also fetch todo issues (assignee: "Di", state: "Todo", limit: 10) and backlog (assignee: "Di", state: "Backlog")
-   - Review the current `git diff` changes and match them against the fetched issue titles/descriptions to identify the most relevant issues.
-   - Use AskUserQuestion to ask which Linear issue this commit relates to, populating the options with up to 2 most relevant issues (prioritize in-progress over todo). Use the issue identifier and title as the label (e.g., "RES-81: Add user auth flow"). Always include "None" as a final option for commits that don't relate to any issue.
+1. **Gather context** (run in parallel):
+   - `git status` — check for changes; if none, inform user and stop
+   - `git diff` (staged + unstaged) — review changes for commit message and issue matching
+   - `git log --oneline -5` — match recent commit style
 
-2. **Check Claude memory files**: Review if any `.claude/` documentation files (CLAUDE.md, rules/*.md) need updates based on the current code changes:
-   - Run `git diff --cached` or `git diff` to see the changes
-   - If changes affect patterns, conventions, or architecture documented in `.claude/` files, suggest updates
-   - If no updates are needed, proceed to commit
+2. **Resolve Linear issue**:
+   - If issue ID provided as argument (e.g., `/commit RES-81`), use it directly
+   - Otherwise, fetch issues in parallel via `list_issues` MCP tool:
+     - `assignee: "me"`, `state: "In Progress"`, `limit: 10`
+     - `assignee: "me"`, `state: "Todo"`, `limit: 10`
+   - Match diff against issue titles/descriptions, pick up to 2 most relevant (prioritize In Progress)
+   - Use `AskUserQuestion` with matched issues as options (format: "RES-81: Title"). Always include "None" as final option
 
-3. **Create the commit**:
-   - Run `git status` to see untracked and modified files
-   - Run `git diff` to review changes
-   - Run `git log --oneline -5` to see recent commit style
-   - Stage relevant files (prefer specific files over `git add -A`)
-   - Create commit with descriptive message following conventional commits format
-   - If a Linear issue was provided, add it in the commit footer using "Closes ISSUE-ID" format
+3. **Stage and commit**:
+   - Stage specific files related to the changes (avoid `git add -A` unless user requests it)
+   - Generate commit message using conventional commits format
+   - If a Linear issue was selected, add `Closes ISSUE-ID` footer
+   - Use HEREDOC for commit message to preserve formatting
 
-4. **Push**:
-    - Run `git push`
+4. **Push** (ask first):
+   - Use `AskUserQuestion`: "Push to remote?" with "Yes" and "No" options
+   - Push only if confirmed
 
-## Commit Message Format
+## Commit Message Convention
 
 ```
 <type>: <short description>
 
-<optional body with more details>
+<optional body>
 
 Closes <ISSUE-ID>
 ```
 
-Types: feat, fix, refactor, docs, test, chore, style, perf
-
-## Example
-
-User: `/commit RES-81`
-
-Result:
+**Example** — `/commit RES-81` produces:
 ```
 feat: add user authentication flow
 
@@ -51,3 +50,9 @@ Implement OAuth2 login with Google and GitHub providers.
 
 Closes RES-81
 ```
+
+## Edge Cases
+
+- **Pre-commit hook failure**: Fix the issue, re-stage, create a NEW commit (never amend)
+- **Nothing to commit**: Inform the user and stop
+- **Secrets detected** (.env, credentials.json, etc.): Warn and exclude from staging
