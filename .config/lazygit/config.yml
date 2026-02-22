@@ -1,0 +1,10 @@
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
+gui:
+  theme:
+    selectedLineBgColor:
+      - "#444444"
+    selectedRangeBgColor:
+      - "#444444"
