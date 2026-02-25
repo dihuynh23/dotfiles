@@ -28,6 +28,7 @@
     line-numbers-zero-style = "#878787"
     hunk-header-style = file line-number syntax
     hunk-header-decoration-style = "#dfafff" ul
+    context = 10
 
 [merge]
     conflictStyle = zdiff3
