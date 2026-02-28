@@ -17,13 +17,13 @@ Two separate git repositories:
 
 1. **Neovim config** (regular repo):
    - Location: `~/.config/nvim/`
-   - Remote: `git@github.com:dihuynh23/nvim.git`
+   - Remote: `git@github.com:catditude/nvim.git`
    - Git commands: Normal (`git status`, `git commit`, etc.)
 
 2. **Other dotfiles** (bare repo):
    - Git dir: `~/.dotfiles/`
    - Work tree: `$HOME`
-   - Remote: `git@github.com:dihuynh23/dotfiles.git`
+   - Remote: `git@github.com:catditude/dotfiles.git`
    - Alias: `dot` (e.g., `dot status`, `dot add`, `dot commit`)
 
 ## File Locations
@@ -57,7 +57,7 @@ Two separate git repositories:
 3. Explain what each change does
 4. Provide reload instructions:
    - Kitty: `Ctrl+Shift+F5` or restart
-   - Tmux: `tmux source ~/.tmux.conf` or `prefix + r` if bound
+   - Tmux: `prefix + r` (bound) or `tmux source ~/.tmux.conf`
    - Zsh: `source ~/.zshrc` or new terminal
    - Neovim: `:source %` or restart
 
@@ -99,6 +99,8 @@ dot push
 - Tmux: TPM or manual plugin setup
 
 ## Reference Files
+
+**Keep references in sync.** When modifying a config, check if the corresponding reference file needs updating (e.g., new key bindings, changed settings). Update the reference before finishing. For example, if you add a `prefix + r` reload binding to `.tmux.conf`, update `references/TMUX.md` to document it.
 
 See `references/` for tool-specific details:
 - [KITTY.md](references/KITTY.md) - Kitty terminal configuration
