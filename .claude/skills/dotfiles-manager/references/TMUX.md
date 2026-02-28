@@ -26,6 +26,13 @@
 | `prefix + r` | Reload config |
 | `prefix + C-l` | Clear terminal (since bare `C-l` is used for pane switching) |
 
+### Window Navigation (no prefix)
+
+| Binding | Action |
+|---------|--------|
+| `Ctrl-n` | Next window (sequential by index) |
+| `Ctrl-p` | Last window (alt-tab style toggle) |
+
 ### Pane Navigation (vim-aware)
 
 Uses `christoomey/vim-tmux-navigator` style integration. These work without prefix and are aware of vim splits:
