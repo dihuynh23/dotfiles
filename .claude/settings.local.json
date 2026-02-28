@@ -8,7 +8,11 @@
       "Bash(gh:*)",
       "Bash(find:*)",
       "WebFetch(domain:github.com)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(dot status:*)",
+      "Bash(dot diff:*)",
+      "Bash(dot log:*)",
+      "Bash(git status:*)"
     ]
   },
   "sandbox": {
