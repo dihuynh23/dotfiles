@@ -66,6 +66,14 @@ Uses `christoomey/vim-tmux-navigator` style integration. These work without pref
 - Heavy border lines with rose pink (`#f591b2`) active border
 - Pane border status bar at top showing: index, command, title (for claude), and current path
 
+### Alerts & Notifications
+
+- `visual-bell on` — status line message on bell (bell not passed to terminal)
+- `bell-action any` — bells from any window (including current) trigger alerts
+- `monitor-activity on` — detect output in background windows
+- `activity-action other` — flag background windows with activity (no alert for current)
+- `window-status-bell-style` — bold highlight for bell windows in status bar
+
 ### Other Settings
 
 - Mouse support enabled
